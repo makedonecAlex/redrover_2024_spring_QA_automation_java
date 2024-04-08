@@ -14,35 +14,36 @@ public class test1_makedonec {
     @Test
     public void testTest(){
         WebDriver driver = new ChromeDriver();
-        driver.get("https://bulavka.by/");
+        driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/");
 //
-//        String title = driver.getTitle();
-//      Assert.assertEquals("bulavka", title);
-//
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+        String title = driver.getTitle();
+      Assert.assertEquals("XYZ Bank", title);
 
-//        WebElement textBox = driver.findElement(By.className("form-input__input"));
-//        textBox.sendKeys("лодка" + Keys.ENTER);
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(800));
 
-             WebElement login =  driver.findElement(By.xpath("//a[contains(text(),'Вход')]"));
-             login.click();
-
-        WebElement nickName = driver.findElement(By.name("login") );
-        nickName.sendKeys("+375292135385");
-
-        WebElement password = driver.findElement(By.name("password"));
-        password.sendKeys("yZ8x5@RHq9wGkSN");
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
-        WebElement capcha = driver.findElement(By.id("recaptcha-anchor"));
-        capcha.click();
+        WebElement loginButton = driver.findElement(By.xpath
+                ("//button[normalize-space()='Customer Login']"));
+        loginButton.click();
 
 
+       WebElement userSelect =  driver.findElement(By.xpath("//select[@id='userSelect']"));
+       userSelect.click();
+
+       WebElement userSelectTo =  driver.findElement(By.xpath("//option[@value='5']"));
+       userSelectTo.click();
+
+        WebElement nickName = driver.findElement(By.xpath("//button[normalize-space()='Login']") );
+        nickName.click();
+
+        WebElement nameUser = driver.findElement(By.xpath("//span[@class='fontBig ng-binding']") );
+        String resultNameUser = nameUser.getText();
+        Assert.assertEquals(resultNameUser,  "Neville Longbottom" );
 
 
-//        WebElement message = driver.findElement(By.id("message"));
-//        String value = message.getText();
-//        Assert.assertEquals("Received!", value);
+        WebElement numberAccount = driver.findElement(By.xpath("//strong[normalize-space()='1013']"));
+        String resultNumberAccount = numberAccount.getText();
+        Assert.assertEquals(resultNumberAccount,"1013");
 
-//        driver.quit();
+        driver.quit();
     }
 }
